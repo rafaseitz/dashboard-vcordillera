@@ -1,29 +1,43 @@
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(
-    page_title="Dashboard V Cordillera",
+    page_title="Centro de Monitoreo V Cordillera",
     layout="wide"
 )
 
 st.title("🚨 Centro de Monitoreo Zona V Cordillera")
 
-col1, col2, col3 = st.columns(3)
+df = pd.read_csv("eds.csv")
 
-with col1:
-    st.metric("Operativas", "23")
+operativas = len(df[df["ESTADO"]=="Operativa"])
+restriccion = len(df[df["ESTADO"]=="Operativa con restricción"])
+cerradas = len(df[df["ESTADO"]=="Cerrada"])
 
-with col2:
-    st.metric("Restricción", "1")
+c1,c2,c3 = st.columns(3)
 
-with col3:
-    st.metric("Cerradas", "1")
+c1.metric("Operativas", operativas)
+c2.metric("Restricción", restriccion)
+c3.metric("Cerradas", cerradas)
+
+st.divider()
+
+st.subheader("Estado Estaciones")
+
+st.dataframe(df)
 
 st.divider()
 
 st.subheader("Incidentes Activos")
 
-st.error("🔴 FILE 446 - Olmué - Corte eléctrico comunal")
+for _, row in df.iterrows():
 
-st.warning("🟡 FILE 639 - Limache - Calle cerrada")
+    if row["ESTADO"] == "Cerrada":
+        st.error(
+            f"FILE {row['FILE']} - {row['COMUNA']} - {row['OBSERVACION']}"
+        )
 
-st.success("🟢 FILE 54 - Los Andes - Problema eléctrico en marquesina")
+    elif row["ESTADO"] == "Operativa con restricción":
+        st.warning(
+            f"FILE {row['FILE']} - {row['COMUNA']} - {row['OBSERVACION']}"
+        )
