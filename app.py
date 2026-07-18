@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 st.set_page_config(
     page_title="Centro de Monitoreo V Cordillera",
@@ -23,17 +24,10 @@ st.title("🚨 Centro de Monitoreo Zona V Cordillera")
 
 c1, c2, c3, c4 = st.columns(4)
 
-with c1:
-    st.metric("EDS Totales", total)
-
-with c2:
-    st.metric("Operativas", operativas)
-
-with c3:
-    st.metric("Restricción", restriccion)
-
-with c4:
-    st.metric("Cerradas", cerradas)
+c1.metric("EDS Totales", total)
+c2.metric("Operativas", operativas)
+c3.metric("Restricción", restriccion)
+c4.metric("Cerradas", cerradas)
 
 st.metric(
     "Disponibilidad Operacional",
@@ -46,35 +40,52 @@ st.subheader("🚨 Incidentes Activos")
 
 incidentes = df[df["ESTADO"] != "Operativa"]
 
-if len(incidentes) == 0:
-    st.success("No existen incidentes reportados")
-else:
+for _, row in incidentes.iterrows():
 
-    for _, row in incidentes.iterrows():
+    if row["ESTADO"] == "Cerrada":
+        st.error(
+            f"FILE {row['FILE']} | {row['COMUNA']} | {row['OBSERVACION']}"
+        )
 
-        if row["ESTADO"] == "Cerrada":
-            st.error(
-                f"FILE {row['FILE']} | {row['COMUNA']} | {row['OBSERVACION']}"
-            )
-
-        elif row["ESTADO"] == "Operativa con restricción":
-            st.warning(
-                f"FILE {row['FILE']} | {row['COMUNA']} | {row['OBSERVACION']}"
-            )
+    elif row["ESTADO"] == "Operativa con restricción":
+        st.warning(
+            f"FILE {row['FILE']} | {row['COMUNA']} | {row['OBSERVACION']}"
+        )
 
 st.divider()
 
 st.subheader("📊 Estado de Estaciones")
 
-filtro = st.selectbox(
-    "Comuna",
-    ["Todas"] + sorted(df["COMUNA"].unique().tolist())
+comuna = st.selectbox(
+    "Filtrar comuna",
+    ["Todas"] + sorted(df["COMUNA"].unique())
 )
 
-if filtro != "Todas":
-    df = df[df["COMUNA"] == filtro]
+if comuna != "Todas":
+    df = df[df["COMUNA"] == comuna]
 
 st.dataframe(
     df,
+    use_container_width=True
+)
+
+st.divider()
+
+st.subheader("📈 Estado Operacional")
+
+resumen = (
+    df.groupby("ESTADO")
+    .size()
+    .reset_index(name="Cantidad")
+)
+
+fig = px.pie(
+    resumen,
+    names="ESTADO",
+    values="Cantidad"
+)
+
+st.plotly_chart(
+    fig,
     use_container_width=True
 )
