@@ -1,10 +1,26 @@
 FILE,COMUNA,LAT,LON,ESTADO,OBSERVACION
-54,Los Andes,-32.827211,-70.594664,Operativa,Problema eléctrico en marquesina
-446,Olmué,-32.997378,-71.180600,Cerrada,Corte eléctrico comunal
-639,Limache,-32.990257,-71.263914,Operativa con restricción,Calle Cerrada
 53,Los Andes,-32.839900,-70.544500,Operativa,Sin Observación
+54,Los Andes,-32.827211,-70.594664,Operativa,Problema eléctrico en marquesina
 55,Llay Llay,-32.847900,-70.959700,Operativa,Sin Observación
 56,La Ligua,-32.453300,-71.249700,Operativa,Sin Observación
 58,Hijuelas,-32.798200,-71.159100,Operativa,Sin Observación
 59,San Felipe,-32.751983,-70.721081,Operativa,Sin Observación
 60,Los Andes,-32.830700,-70.602300,Operativa,Sin Observación
+61,San Felipe,-32.756500,-70.735100,Operativa,Sin Observación
+65,Los Andes,-32.837900,-70.598100,Operativa,Sin Observación
+67,Quillota,-32.877000,-71.233400,Operativa,Sin Observación
+73,Quillota,-32.897024,-71.265838,Operativa,Sin Observación
+74,Quillota,-32.897321,-71.246166,Operativa,Sin Observación
+321,Limache,-33.002932,-71.268762,Operativa,Sin Observación
+406,San Felipe,-32.756414,-70.722096,Operativa,Sin Observación
+446,Olmué,-32.997378,-71.180600,Cerrada,Corte eléctrico comunal
+447,Limache,-33.005537,-71.257032,Operativa,Sin Observación
+465,Curimon,-32.784196,-70.687474,Operativa,Sin Observación
+484,Limache,-32.996388,-71.225177,Operativa,Sin Observación
+493,San Esteban,-32.815488,-70.588617,Operativa,Sin Observación
+582,Calera,-32.777901,-71.191762,Operativa,Sin Observación
+615,San Felipe,-32.743642,-70.730427,Operativa,Sin Observación
+639,Limache,-32.990257,-71.263914,Operativa con restricción,Calle Cerrada
+758,Quillota,-32.873800,-71.242500,Operativa,Sin Observación
+765,San Felipe,-32.750100,-70.730200,Operativa,Sin Observación
+767,Nogales,-32.708300,-71.205100,Operativa,Sin Observación
