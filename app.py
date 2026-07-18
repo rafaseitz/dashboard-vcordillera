@@ -93,3 +93,41 @@ st.plotly_chart(
     fig,
     use_container_width=True
 )
+st.divider()
+
+st.subheader("🗺️ Mapa Operacional")
+
+m = folium.Map(
+    location=[-32.85, -70.95],
+    zoom_start=9
+)
+
+for _, row in df.iterrows():
+
+    color = "green"
+
+    if row["ESTADO"] == "Cerrada":
+        color = "red"
+
+    elif row["ESTADO"] == "Operativa con restricción":
+        color = "orange"
+
+    folium.Marker(
+        location=[row["LAT"], row["LON"]],
+        popup=f"""
+        FILE: {row['FILE']}
+
+        COMUNA: {row['COMUNA']}
+
+        ESTADO: {row['ESTADO']}
+
+        OBS: {row['OBSERVACION']}
+        """,
+        icon=folium.Icon(color=color)
+    ).add_to(m)
+
+st_folium(
+    m,
+    width=1200,
+    height=600
+)
